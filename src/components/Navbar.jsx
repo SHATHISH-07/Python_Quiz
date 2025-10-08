@@ -30,7 +30,7 @@ const Navbar = () => {
             </nav>
 
             {/* Mobile Navbar */}
-            <nav className=" z-50 flex flex-col sm:hidden items-center p-4 shadow-md bg-[#1c1c1c]/70  text-white">
+            <nav className=" z-50 flex flex-col sm:hidden items-center p-4 shadow-md bg-[#1c1c1c]/90  text-white">
                 <div className="flex items-center gap-3 mb-4">
                     <img src={logo} alt="logo" className="w-8 h-8" />
                     <h1 className="text-2xl font-bold">Python Quiz</h1>
