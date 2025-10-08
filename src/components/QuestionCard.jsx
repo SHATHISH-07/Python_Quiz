@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 const QuestionCard = ({ questionData, handleAnswer }) => {
     const [selected, setSelected] = useState("");
@@ -29,7 +29,7 @@ const QuestionCard = ({ questionData, handleAnswer }) => {
                                     : selected === option
                                         ? 'bg-red-500/80 border-red-400'
                                         : 'bg-gray-700/50'
-                                : 'bg-gray-700/50 hover:bg-yellow-400 hover:text-black hover:border-yellow-400'
+                                : 'bg-gray-700/50 '
                             }`}
                     >
                         {option}

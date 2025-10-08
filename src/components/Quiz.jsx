@@ -5,6 +5,7 @@ import { collection, getDocs, doc, updateDoc, query, where } from "firebase/fire
 import QuestionCard from "../components/QuestionCard";
 import Timer from "../components/Timer";
 import QuestionTimer from "../components/QuestionTimer";
+import logo from "/logo.svg";
 
 const Quiz = () => {
     const location = useLocation();
@@ -118,7 +119,7 @@ const Quiz = () => {
             <div className="w-full max-w-4xl bg-black/70 backdrop-blur-xl rounded-3xl shadow-2xl p-4 sm:p-8">
                 <div className="flex justify-between items-center mb-4">
                     <div className="flex items-center gap-2">
-                        <img src="/logo.svg" alt="logo" className="w-8 h-8 sm:w-10 sm:h-10" />
+                        <img src={logo} alt="logo" className="w-8 h-8 sm:w-10 sm:h-10" />
                         <h1 className="text-white text-xl sm:text-3xl font-bold">Python Quiz</h1>
                     </div>
                     <Timer totalTime={remainingGlobalTime} onTimeUp={() => handleSubmitQuiz(score)} />
