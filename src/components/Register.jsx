@@ -26,26 +26,33 @@ const Register = () => {
         setIsLoading(true);
         setError("");
 
-        try {
+        // Regex validation for register_number
+        const registerPattern = /^(22|23|24|25)BECS\d{3}$/;
 
-            const q = query(collection(db, "users"), where("register_number", "==", form.register_number));
+        if (!registerPattern.test(form.register_number)) {
+            setError("Register number must follow the format: (e.g., 22BECS080).");
+            setIsLoading(false);
+            return;
+        }
+
+        try {
+            const q = query(
+                collection(db, "users"),
+                where("register_number", "==", form.register_number)
+            );
             const existingUserSnapshot = await getDocs(q);
 
             if (!existingUserSnapshot.empty) {
-
                 const userData = existingUserSnapshot.docs[0].data();
 
                 if (userData.isTakenTest) {
-
                     setError("This register number has already been used to complete the quiz.");
                     setIsLoading(false);
                     return;
                 } else {
-
                     navigate("/quiz", { state: { register_number: form.register_number } });
                 }
             } else {
-
                 await addDoc(collection(db, "users"), { ...form });
                 navigate("/quiz", { state: { register_number: form.register_number } });
             }
@@ -53,12 +60,12 @@ const Register = () => {
             console.error("Error registering user:", err);
             setError("An error occurred. Please try again.");
         } finally {
-
             if (isLoading) {
                 setIsLoading(false);
             }
         }
     };
+
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-yellow-400 via-red-500 to-pink-600 p-4">
@@ -68,7 +75,7 @@ const Register = () => {
                 </h2>
                 {/* Inputs and Selects remain the same */}
                 <input name="name" placeholder="Enter your name..." onChange={handleChange} required className="p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400 bg-white text-black" />
-                <input name="register_number" type="text" placeholder="Register Number : 610522104100" onChange={handleChange} required className="p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400 bg-white text-black" />
+                <input name="register_number" type="text" placeholder="Roll Number : 22BECS080" onChange={handleChange} required className="p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400 bg-white text-black" />
                 <div className="flex sm:flex-row flex-col gap-4 md:gap-3">
                     <select name="year" value={form.year} onChange={handleChange} className="flex-1 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400 bg-white text-black" >
                         <option value="1">First Year</option>
